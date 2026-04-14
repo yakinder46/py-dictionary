@@ -1,19 +1,21 @@
-class Dictionary:
-    def __init__(self, capacity=8):
-        self.capacity = capacity
-        self.size = 0
-        self.load_factor = 2 / 3
-        self.table = [None] * self.capacity
+from typing import Any, Optional, List, Tuple
 
-    def _hash(self, key):
+
+class Dictionary:
+    def __init__(self, capacity: int = 8) -> None:
+        self.capacity: int = capacity
+        self.size: int = 0
+        self.load_factor: float = 2 / 3
+        self.table: List[Optional[Tuple[Any, Any]]] = [None] * self.capacity
+
+    def _hash(self, key: Any) -> int:
         return hash(key) % self.capacity
 
-    def __setitem__(self, key, value):
+    def __setitem__(self, key: Any, value: Any) -> None:
         if self.size / self.capacity >= self.load_factor:
             self._resize()
 
-        index = self._hash(key)
-
+        index: int = self._hash(key)
         while self.table[index] is not None:
             if self.table[index][0] == key:
                 self.table[index] = (key, value)
@@ -23,9 +25,9 @@ class Dictionary:
         self.table[index] = (key, value)
         self.size += 1
 
-    def __getitem__(self, key):
-        index = self._hash(key)
-        start_index = index
+    def __getitem__(self, key: Any) -> Any:
+        index: int = self._hash(key)
+        start_index: int = index
 
         while self.table[index] is not None:
             if self.table[index][0] == key:
@@ -36,8 +38,8 @@ class Dictionary:
 
         raise KeyError(f"Key {key} not found")
 
-    def _resize(self):
-        old_table = self.table
+    def _resize(self) -> None:
+        old_table: List[Optional[Tuple[Any, Any]]] = self.table
         self.capacity *= 2
         self.table = [None] * self.capacity
         self.size = 0
@@ -46,5 +48,5 @@ class Dictionary:
             if item is not None:
                 self.__setitem__(item[0], item[1])
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self.size
