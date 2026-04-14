@@ -11,7 +11,9 @@ class Dictionary:
         self.capacity: int = capacity
         self.size: int = 0
         self.load_factor: float = 2 / 3
-        self.table: List[Optional[Tuple[Any, int, Any]]] = [None] * self.capacity
+        self.table: List[Optional[Tuple[Any, int, Any]]] = (
+            [None] * self.capacity
+        )
 
     def _hash(self, key: Any) -> int:
         return hash(key)
