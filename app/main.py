@@ -4,7 +4,9 @@ from typing import Any, Optional, List, Tuple
 class Dictionary:
     def __init__(self, capacity: int = 8) -> None:
         if not isinstance(capacity, int) or capacity <= 0:
-            raise ValueError("The capacity must be a positive integer.")
+            raise ValueError(
+                "The capacity must be a positive integer."
+            )
 
         self.capacity: int = capacity
         self.size: int = 0
