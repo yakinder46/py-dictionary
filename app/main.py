@@ -2,10 +2,14 @@ from typing import Any, Optional, List, Tuple
 
 
 class Dictionary:
-
     def __init__(self, capacity: int = 8) -> None:
-        if capacity <= 0:
-            raise ValueError("Capacity must be a positive integer")
+        if not isinstance(capacity, int) or capacity <= 0:
+            raise ValueError("The capacity must be a positive integer.")
+
+        self.capacity: int = capacity
+        self.size: int = 0
+        self.load_factor: float = 2 / 3
+        self.table: List[Optional[Tuple[Any, int, Any]]] = [None] * self.capacity
         self.capacity: int = capacity
         self.size: int = 0
         self.load_factor: float = 2 / 3
